@@ -2,19 +2,16 @@ pipeline {
     agent any
 
     stages {
-        stage('Deploy VM') {
-            steps {
-				echo 'VM is starting...'
-                bat label: '', script: 'vagrant up'
-				bat label: '', script: 'vagrant ssh'
-            }
-        }
+        
 		stage('SSH'){
 			steps{
-				 bat label: '', script: 'cd /vagrant'
-				 bat label: '', script: 'sed $\'s/\\r$//\' ./gradlew > ./gradlew.Unix'
-				 bat label: '', script: './gradlew.Unix build'
-				 bat label: '', script: 'docker-compose up'
+				echo 'VM is starting...'
+				powershell label: '', script: 'vagrant up'
+				powershell label: '', script: 'vagrant ssh'
+				 sh label: '', script: 'cd /vagrant'
+				 sh label: '', script: 'sed $\'s/\\r$//\' ./gradlew > ./gradlew.Unix'
+				 sh label: '', script: './gradlew.Unix build'
+				 sh label: '', script: 'docker-compose up'
 				}
 			}
         
