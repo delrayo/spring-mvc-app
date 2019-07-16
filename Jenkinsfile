@@ -11,10 +11,10 @@ pipeline {
         }
 		stage('SSH'){
 			steps{
-				 sh label: '', script: 'cd /vagrant'
-				 sh label: '', script: 'sed $\'s/\\r$//\' ./gradlew > ./gradlew.Unix'
-				 sh label: '', script: './gradlew.Unix build'
-				 sh label: '', script: 'docker-compose up'
+				 bat label: '', script: 'cd /vagrant'
+				 bat label: '', script: 'sed $\'s/\\r$//\' ./gradlew > ./gradlew.Unix'
+				 bat label: '', script: './gradlew.Unix build'
+				 bat label: '', script: 'docker-compose up'
 				}
 			}
         
