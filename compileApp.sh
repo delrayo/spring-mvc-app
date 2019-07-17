@@ -1,3 +1,1 @@
-
-sed $'s/\r$//' ./gradlew > ./gradlew.Unix
-./gradlew.Unix build
+sed $'s/\r$//' ./gradlew > ./gradlew.Unix; ./gradlew.Unix build
