@@ -3,16 +3,26 @@ pipeline {
 
     stages {
         
-		stage('SSH'){
+		stage('Vagrant'){
 			steps{
 				echo 'VM is starting...'
 				powershell label: '', script: 'vagrant up'
-				powershell label: '', script: 'vagrant ssh'
-				echo '+-+-+-+++-+-+-+-+-+- just testing6...'
-				 powershell label: '', script: 'cd /vagrant'
-				 powershell label: '', script: 'sed $\'s/\\r$//\' ./gradlew > ./gradlew.Unix'
-				 powershell label: '', script: './gradlew.Unix build'
-				 powershell label: '', script: 'docker-compose up' 
+				echo 'vagrant built succesfully...'
+			
+								}
+			}
+			stage('compile app'){
+			steps{
+					powershell label: '', script: 'vagrant ssh -c "cd /vagrant; pwd; ./compileApp.sh"'
+					echo 'Build app succesfully'
+				
+				}
+			}
+			stage('docker'){
+			steps{
+					powershell label: '', script: 'vagrant ssh -c "cd /vagrant; docker-compose up"'
+					echo 'spring-mvc-app succesfully'
+				
 				}
 			}
         
